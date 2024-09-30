@@ -43,5 +43,5 @@ For example:
 1. Download or clone this repository.
 2. Create a `Fishtracker` folder in your World of Warcraft `Interface/AddOns/` directory. 
    - The path will be something like `C:\Program Files\World of Warcraft\_classic_era_\Interface\AddOns\` on Windows
-3. Move the Fishtracker.lua and Fishtracker.toc files int the Fishtracker folder. It is important that the Folder and the .lua and .toc files have the same Name.
+3. Move the Fishtracker.lua and Fishtracker.toc files into the Fishtracker folder. It is important that the Folder and the .lua and .toc files have the same name.
 4. Restart your game, relog or type `/reload` in the chat to load the addon.
