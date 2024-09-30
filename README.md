@@ -1,6 +1,6 @@
 # Fishtracker
 
-Fishtracker is a World of Warcraft addon written for the classic era servers that helps track the types and amounts of fish you catch while fishing. It records fish data by zone, season (summer/winter), and time period (night, morning, day, evening), as well as tracking fish catches for both your current session and all-time. Additionally, the addon allows users to toggle chat output to display either current session or all-time fishing data, or both, for each fish caught.
+Fishtracker is a World of Warcraft addon written for the classic era servers that helps track the types and amounts of fish you catch while fishing. It records fish data by zone, season (summer/winter), and time period (night, morning, day, evening), as well as tracking fish catches for both your current session and all-time. Additionally, the addon allows users to toggle chat output to display nothing, current session or all-time fishing data, or both, for each fish caught.
 
 Already available data for catchrates is often inaccurate due to not taking into account the dependency on time and season while fishing. Also the sample size is often very small. This addon attempts to track the fishing data in an organized way to 
 
