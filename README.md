@@ -37,7 +37,7 @@ Dump fishing data for a specific zone, season, and time period using dump for al
 
 For example:
 
-/Fishtracker dump "Stranglethorn Vale" Summer Day
+/Fishtracker dump Stranglethorn Vale Summer Day
 
 ## Installation
 1. Download or clone this repository.
