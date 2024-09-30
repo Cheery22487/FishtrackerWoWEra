@@ -6,7 +6,7 @@ Current available catch rate data is often unreliable as it fails to account for
 
 ## Features
 - Tracks fish catches by:
-  - Zone (including zones with spaces in their names)
+  - Zone
   - Time period: Night (00:00–06:00), Morning (06:00–12:00), Day (12:00–18:00), Evening (18:00–00:00) (Servertime)
   - Season: Summer (March 20–September 22), Winter (September 23–March 19)
 - Allows toggling different chat output options:
@@ -38,6 +38,8 @@ Dump fishing data for a specific zone, season, and time period using dump for al
 For example:
 
 /Fishtracker dump Stranglethorn Vale Summer Day
+
+Capitalization in correct spelling is important!
 
 ## Installation
 1. Download or clone this repository.
