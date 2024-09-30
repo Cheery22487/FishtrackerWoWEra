@@ -1,0 +1,7 @@
+## Author: Me, im cool
+## Title: Fishtracker
+## Notes: Tracks the fish looted while fishing - able to differentiate between seasons, zones and time period
+## Version: 1.0
+## SavedVariables: FishtrackerDB
+
+Fishtracker.lua
