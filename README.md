@@ -9,7 +9,7 @@ Current available catch rate data is often unreliable as it fails to account for
   - Zone (including zones with spaces in their names)
   - Time period: Night (00:00–06:00), Morning (06:00–12:00), Day (12:00–18:00), Evening (18:00–00:00) (Servertime)
   - Season: Summer (March 20–September 22), Winter (September 23–March 19)
-- Allows toggling of chat output for:
+- Allows toggling different chat output options:
   - Current session data
   - All-time data
   - Both session and all-time data
