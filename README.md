@@ -31,7 +31,7 @@ Set how fish-catching data is printed in the chat when fishing:
 - `both`: Show both session and all-time data (this is the default mode)
 
 ### Dump All-Time Data
-Dump fishing data for a specific zone, season, and time period using dump for all-time data and dumpsession for data from the current login session:
+Dump fishing data for a specific zone, season, and time period using `<dump>` for all-time data and `<dumpsession>` for data from the current login session:
 
 /Fishtracker dump `<zone>` `<season>` `<timePeriod>`
 
