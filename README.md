@@ -22,7 +22,7 @@ Current available catch rate data is often unreliable as it fails to account for
 ### Set Chat Output Mode
 Set how fish-catching data is printed in the chat when fishing:
 
-/Fishtracker setmode <mode>
+/Fishtracker setmode `<mode>`
 
 `<mode>` can be:
 - `none`: No chat output
