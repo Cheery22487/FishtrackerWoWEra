@@ -39,7 +39,7 @@ For example:
 
 /Fishtracker dump Stranglethorn Vale Summer Day
 
-Capitalization in correct spelling is important!
+Capitalization and correct spelling is important!
 
 ## Installation
 1. Download or clone this repository.
