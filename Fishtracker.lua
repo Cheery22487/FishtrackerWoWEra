@@ -1,26 +1,17 @@
--- Initialize settings
 if not FishtrackerSettings then
     FishtrackerSettings = {
-        chatOutputMode = "both",  -- Default output is "both"
+        chatOutputMode = "both", --can be changed with chat commands
     }
 end
 
-
--- Initialize all-time data
 if not FishtrackerDB then
     FishtrackerDB = {}
 end
 
-
--- Initialize current session's data
 local FishtrackerSessionDB = {}
 
-
--- Throttle variable for event listener to avoid double counting due to bad latency
 local isThrottleActive = false
 
-
--- Function to get the current time period based on server time
 local function GetTimePeriod()
     local hour, minute = GetGameTime()
 
@@ -35,8 +26,6 @@ local function GetTimePeriod()
     end
 end
 
-
--- Function to get the current season based on the WoW seasonal calendar
 local function GetCurrentSeason()
     local month = tonumber(date("%m"))
     local day = tonumber(date("%d"))
@@ -49,8 +38,6 @@ local function GetCurrentSeason()
     end
 end
 
-
--- Initialize fish data for a given zone, season, and time period if it doesn't exist
 local function InitializeFishingData(database, zone, season, timePeriod, fishType)
     if not database[zone] then
         database[zone] = {}
@@ -66,32 +53,22 @@ local function InitializeFishingData(database, zone, season, timePeriod, fishTyp
     end
 end
 
-
--- Function for loot event
+-- loot event handling
 local function OnLootReady()
-    -- If the throttle is active, skip lootwindow - this should prevent double counting with bad latency in the case of fishing.
+    -- This should prevent the issue of double counting with bad latency in the case of fishing
     if isThrottleActive then
         return
     end
-    isThrottleActive = true     -- Set the throttle to active to prevent multiple triggers
+    isThrottleActive = true
 
-    -- Process the loot event
-    -- Get the current zone name
     local currentZone = GetRealZoneText()
-
-    -- Get the current time period (Night, Morning, Day or Evening)
     local currentTimePeriod = GetTimePeriod()
-
-    -- Get the current season (Winter, Summer)
     local currentSeason = GetCurrentSeason()
 
-    -- Variables for the total fish for all-time and session data.
     local totalFishInZoneSeasonTime = 0
     local totalSessionFishInZoneSeasonTime = 0
 
-    -- Loop through all the loot slots
     for i = 1, GetNumLootItems() do
-        -- Get information about the loot
         local lootIcon, lootName, lootQuantity, lootQuality, locked, isQuestItem, lootID = GetLootSlotInfo(i)
 
         -- Check if the player is currently fishing
@@ -114,7 +91,6 @@ local function OnLootReady()
                 totalSessionFishInZoneSeasonTime = totalSessionFishInZoneSeasonTime + count
             end
 
-            -- Print based on chat output settings
             local chatOutputMode = FishtrackerSettings.chatOutputMode
             local message = ""
 
@@ -137,7 +113,7 @@ local function OnLootReady()
             if chatOutputMode == "session" then
                 local sessionFishCount = FishtrackerSessionDB[currentZone][currentSeason][currentTimePeriod][lootName]
                 local sessionPercentage = (sessionFishCount / totalSessionFishInZoneSeasonTime) * 100
-                local sessionMessage = string.format(
+                local message = string.format(
                     "Fishtracker: You fished %s. Session in %s during the %s (%s): %d out of %d (%.2f%%).",
                     lootName,
                     currentZone,
@@ -147,7 +123,7 @@ local function OnLootReady()
                     totalSessionFishInZoneSeasonTime,
                     sessionPercentage
                 )
-                print(sessionMessage)
+                print(message)
             end
 
             if chatOutputMode == "both" then
@@ -174,14 +150,13 @@ local function OnLootReady()
         end
     end
 
-    -- Set a timer for the throttle
     C_Timer.After(0.5, function()
         isThrottleActive = false
     end)
 end
 
 
--- Function to set the chat output mode
+-- Set the chat output mode
 local function SetChatOutputMode(mode)
     if mode == "none" or mode == "session" or mode == "alltime" or mode == "both" then
         FishtrackerSettings.chatOutputMode = mode
@@ -192,7 +167,7 @@ local function SetChatOutputMode(mode)
 end
 
 
--- Function to dump fish data for a given zone, season, and time period for all-time and session
+-- Dump fish data for a given zone, season, and time period for all-time and session
 local function DumpFishData(database, zone, season, timePeriod, isSession)
     if not database[zone] or not database[zone][season] or not database[zone][season][timePeriod] then
         print("Fishtracker: No data available for " .. zone .. " in the " .. timePeriod .. " during " .. season .. ".")
@@ -216,14 +191,10 @@ SlashCmdList["FISHTRACKER"] = function(msg)
     if command == "setmode" then
         SetChatOutputMode(rest)
     elseif command == "dump" then
-        -- Extract the zone and get the last two words for season and time period. Zone name can have spaces, Season and timePeriod does not.
         local zone, season, timePeriod = rest:match("^(.-)%s+(%S+)%s+(%S+)$")
-        -- Dump all-time fish data
         DumpFishData(FishtrackerDB, zone, season, timePeriod, false)
     elseif command == "dumpsession" then
-        -- Extract the zone and get the last two words for season and time period. Zone name can have spaces, Season and timePeriod does not.
         local zone, season, timePeriod = rest:match("^(.-)%s+(%S+)%s+(%S+)$")
-        -- Dump session fish data
         DumpFishData(FishtrackerSessionDB, zone, season, timePeriod, true)
     else
         print("Fishtracker: Invalid command. Use '/Fishtracker setmode {mode}', '/Fishtracker dump {zone} {season} {timePeriod}', or '/Fishtracker dumpsession {zone} {season} {timePeriod}'.")
@@ -231,7 +202,6 @@ SlashCmdList["FISHTRACKER"] = function(msg)
 end
 
 
--- Event listeners for loot ready
 local frame = CreateFrame("FRAME")
 frame:RegisterEvent("LOOT_READY")
 frame:SetScript("OnEvent", function(self, event, ...)
